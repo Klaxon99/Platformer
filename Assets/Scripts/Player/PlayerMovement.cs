@@ -10,10 +10,20 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Rigidbody2D _rigidBody;
     [SerializeField] private PlayerAnimator _animator;
 
+    private Player _player;
+
+    private void Start()
+    {
+        _player = GetComponent<Player>();
+    }
+
     private void Update()
     {
-        Move();
-        Jump();
+        if (_player.IsAlive)
+        {
+            Jump();
+            Move();
+        }
     }
 
     private void Move()

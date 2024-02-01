@@ -4,6 +4,7 @@ using UnityEngine;
 public class PlayerAnimator : MonoBehaviour
 {
     private readonly int IsRunning = Animator.StringToHash("IsRunning");
+    private readonly int IsDead = Animator.StringToHash("IsDead");
 
     [SerializeField] private Animator _animator;
 
@@ -20,5 +21,10 @@ public class PlayerAnimator : MonoBehaviour
     public void StopRunningAnimation()
     {
         _animator.SetBool(IsRunning, false);
+    }
+
+    public void PlayDeadAnimation()
+    {
+        _animator.SetBool(IsDead, true);
     }
 }
