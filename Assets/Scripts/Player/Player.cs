@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour 
 {
-    [SerializeField] PlayerAnimator _animator;
+    [SerializeField] private PlayerAnimator _animator;
 
     private float _health;
     private float _maxHealth;

@@ -3,7 +3,7 @@ using UnityEngine;
 public class ResourceSpawner : MonoBehaviour
 {
     [SerializeField] private SpawnPoint[] _spawnPoints;
-    [SerializeField] GameObject[] _resourcesPrefabs;
+    [SerializeField] private Resource[] _resourcesPrefabs;
 
     private void Start()
     {
@@ -15,7 +15,7 @@ public class ResourceSpawner : MonoBehaviour
         }
     }
 
-    private void Spawn(SpawnPoint spawnPoint, GameObject prefab)
+    private void Spawn(SpawnPoint spawnPoint, Resource prefab)
     {
         Instantiate(prefab, spawnPoint.transform.position, Quaternion.identity);
     }

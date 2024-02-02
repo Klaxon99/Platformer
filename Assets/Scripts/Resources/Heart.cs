@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Heart : MonoBehaviour
 {
-    [SerializeField] float _healthRecoveryCount;
+    [SerializeField] private float _healthRecoveryCount;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
