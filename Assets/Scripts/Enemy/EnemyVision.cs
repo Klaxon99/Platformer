@@ -1,16 +1,16 @@
+using System;
 using UnityEngine;
 
 public class EnemyVision : MonoBehaviour
 { 
-    public bool HasTarget => _target != null;
-
-    private Transform _target = null;
+    public event Action<Transform> OnFoundTarget;
+    public event Action OnLoseTarget;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.TryGetComponent(out Player player))
         {
-            _target = player.transform;
+            OnFoundTarget?.Invoke(player.transform);
         }
     }
 
@@ -18,14 +18,7 @@ public class EnemyVision : MonoBehaviour
     {
         if (collision.TryGetComponent(out Player player))
         {
-            _target = null;
+            OnLoseTarget?.Invoke();
         }
-    }
-
-    public bool TryGetTargetPosition(out Vector3 target)
-    {
-        target = HasTarget ? _target.transform.position : Vector3.zero;
-
-        return HasTarget;
     }
 }

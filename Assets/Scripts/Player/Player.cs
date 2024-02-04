@@ -3,37 +3,49 @@ using UnityEngine;
 public class Player : MonoBehaviour 
 {
     [SerializeField] private PlayerAnimator _animator;
+    [SerializeField] private Health _health;
+    [SerializeField] private Mover _mover;
+    [SerializeField] private Jumper _jumper;
+    [SerializeField] private PlayerInputHandler _input;
 
-    private float _health;
-    private float _maxHealth;
-    private float _minHealth;
+    public bool IsAlive => _health.IsAlive;
 
-    public bool IsAlive => _health > _minHealth;
-
-    private void Start()
+    private void Update()
     {
-        _maxHealth = 100;
-        _health = _maxHealth;
-        _minHealth = 0;
+        if (IsAlive)
+        {
+            Vector3 direction = new Vector3 (_input.HorizontalInput, 0);
+
+            _mover.Move(direction);
+
+            if (direction.x != 0)
+            {
+                _animator.PlayRunningAnimation();
+            }
+            else
+            {
+                _animator.StopRunningAnimation();
+            }
+
+            if (_input.VerticalInput)
+            {
+                _jumper.Jump();
+            }
+        }
+    }
+
+    private void OnEnable()
+    {
+        _health.OnDead += Dead;
+    }
+
+    private void OnDisable()
+    {
+        _health.OnDead -= Dead;
     }
 
     private void Dead()
     {
         _animator.PlayDeadAnimation();
-    }
-
-    public void RecoveryHealth(float healthCount)
-    {
-        _health = Mathf.Min(_health + healthCount, _maxHealth);
-    }
-
-    public void TakeDamage(float damage)
-    {
-        _health = Mathf.Max(_health - damage, _minHealth);
-
-        if (_health == _minHealth)
-        {
-            Dead();
-        }
     }
 }
