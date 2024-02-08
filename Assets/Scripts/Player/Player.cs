@@ -7,8 +7,14 @@ public class Player : MonoBehaviour
     [SerializeField] private Mover _mover;
     [SerializeField] private Jumper _jumper;
     [SerializeField] private PlayerInputHandler _input;
+    [SerializeField] private Vampirism _vampirism;
 
     public bool IsAlive => _health.IsAlive;
+
+    private void Start()
+    {
+        _vampirism.gameObject.SetActive(false);
+    }
 
     private void Update()
     {
@@ -37,11 +43,18 @@ public class Player : MonoBehaviour
     private void OnEnable()
     {
         _health.OnDead += Dead;
+        _input.OnPressedSkillButton += ActivateVampirism;
     }
 
     private void OnDisable()
     {
         _health.OnDead -= Dead;
+        _input.OnPressedSkillButton -= ActivateVampirism;
+    }
+
+    private void ActivateVampirism()
+    {
+        _vampirism.gameObject.SetActive(true);
     }
 
     private void Dead()

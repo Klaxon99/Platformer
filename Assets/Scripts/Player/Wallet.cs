@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class Wallet : MonoBehaviour
 {
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.TryGetComponent(out Coin coin))
+        if (collision.gameObject.TryGetComponent(out Coin coin))
         {
             Destroy(coin.gameObject);
         }

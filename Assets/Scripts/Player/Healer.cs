@@ -10,9 +10,9 @@ public class Healer : MonoBehaviour
         _health = GetComponent<Health>();
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.TryGetComponent(out Heart heart))
+        if (collision.gameObject.TryGetComponent(out Heart heart))
         {
             _health.Recovery(heart.HealthRecoveryCount);
             Destroy(heart.gameObject);
